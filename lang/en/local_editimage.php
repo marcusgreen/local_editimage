@@ -26,3 +26,8 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['pluginname'] = 'Image Edit';
+$string['uploadimage'] = 'Upload image';
+$string['crop'] = 'Crop';
+$string['deleteimage'] = 'Delete image';
+$string['cropimage'] = 'Crop image';
+$string['resolutionlow'] = 'For best quality, we recommend a larger image of at last 512px width.';

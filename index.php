@@ -14,35 +14,33 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 /**
- * Run the code checker from the web.
  *
  * @package    local_editimage
- * @copyright  2019 Marcus Green
+ * @copyright  2021 Marcus Green
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-global $CFG, $PAGE;
 require_once(__DIR__ . '/../../config.php');
 require_once($CFG->libdir . '/formslib.php');
 require_login();
 
 $PAGE->set_context(context_system::instance());
 $PAGE->set_url('/local/editimage/index.php');
-$filename = '';
-
+MoodleQuickForm::registerElementType('singleimage', __DIR__."/singleimage.php", 'MoodleQuickForm_singleimage');
 class local_editimage_form extends moodleform {
-    public $filecontent;
-    public $filename;
 
     protected function definition() {
-        global $DB, $CFG,$OUTPUT,$PAGE;
-        $PAGE->requires->js_call_amd('local_editimage/editimage', 'init',['src-img']);
-
+        global $PAGE;
+        $params = ['param1', 'param2'];
+        //$PAGE->requires->js_call_amd('local_editimage/image_editable', 'init', $params);
         $mform = $this->_form;
-        $data =[];
-        $data['imageurl'] = $CFG->wwwroot."/local/editimage/moodle_logo.png";
-        $html = $OUTPUT->render_from_template('local_editimage/editform', $data);
-        $mform->addElement('html',$html);
-
+        $singleimageoptions = [
+            'maxbytes' => 100,
+            'component' => 'core_course',
+            'filearea' => 'overviewfiles',
+            'currentimage' => '',
+            'contextid' => ''
+        ];
+        $mform->addElement('singleimage', 'sampleimage', "Sample Image", null, $singleimageoptions);
     }
 }
 
