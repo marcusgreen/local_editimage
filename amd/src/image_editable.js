@@ -331,7 +331,7 @@ const imageUploader = (target, siteMaxBytes, event) => {
         img.setAttribute('src', filedata);
         img.addEventListener('load', () => {
             if (img.naturalWidth < 512) {
-                getString('', 'error').done(message => {
+                getString('resolutionlow', 'local_editimage').done(message => {
                     showImageAlert(imageHandler, message);
                 });
             }
@@ -458,5 +458,6 @@ export const init = (target, siteMaxBytes) => {
     });
 
     showEditActions(target);
+    debugger;
     imagecontrols.classList.add('js-enabled');
 };
